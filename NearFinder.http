@@ -1,0 +1,6 @@
+@NearFinder_HostAddress = http://localhost:5067
+
+GET {{NearFinder_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
