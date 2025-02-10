@@ -24,15 +24,20 @@ builder.Services.AddMediatR(
        }
    );
 
-builder.Services.AddDbContextFactory<NearFinderDbContext>(
-    o =>
-    {
-        o.UseNpgsql(builder.Configuration.GetConnectionString("NearFinder"), b => b.MigrationsAssembly("NearFinder"))
-            .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
-            .EnableSensitiveDataLogging(false);
-    }
-    );
-     
+builder.Services.AddDbContextFactory<NearFinderDbContext>(options =>
+{
+    options.UseNpgsql(
+        builder.Configuration.GetConnectionString("NearFinder"),
+        npgsqlOptions =>
+        {
+            npgsqlOptions.MigrationsAssembly("NearFinder");
+            npgsqlOptions.UseNetTopologySuite();  // Enable NetTopologySuite for spatial types
+        }
+    )
+    .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+    .EnableSensitiveDataLogging(false);
+});
+
 
 var app = builder.Build();
 

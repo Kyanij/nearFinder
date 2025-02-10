@@ -7,7 +7,7 @@ namespace NearFinder.Persistance
         /// <summary>
         /// Location
         /// </summary>
-        public DbSet<Location> Location { get; private set; } = null!;
+        public DbSet<Location> Locations { get; private set; } = null!;
 
         public NearFinderDbContext(DbContextOptions<NearFinderDbContext> options) : base(options) { }
 
